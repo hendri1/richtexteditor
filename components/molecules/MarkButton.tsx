@@ -8,7 +8,7 @@ const isMarkActive = (
   editor: BaseEditor & ReactEditor & HistoryEditor,
   format: string
 ) => {
-  const marks = Editor.marks(editor)
+  const marks: any = Editor.marks(editor)
   return marks ? marks[format] === true : false
 }
 

@@ -1,24 +1,38 @@
-import { BaseEditor } from 'slate'
+import { Descendant, BaseEditor } from 'slate'
 import { ReactEditor } from 'slate-react'
 import { HistoryEditor } from 'slate-history'
 
-export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor
+export type BlockQuoteElement = {
+  type: 'quote'
+  align?: string
+  children: Descendant[]
+}
 
 export type ParagraphElement = {
   type: 'paragraph'
-  children: CustomText[]
+  align?: string
+  children: Descendant[]
 }
 
-export type CustomElement = ParagraphElement
+type CustomElement = BlockQuoteElement | ParagraphElement
 
-export type FormattedText = { text: string; bold?: true }
+export type CustomText = {
+  bold?: boolean
+  italic?: boolean
+  code?: boolean
+  text: string
+}
 
-export type CustomText = FormattedText
+export type EmptyText = {
+  text: string
+}
+
+export type CustomEditor = BaseEditor & ReactEditor & HistoryEditor
 
 declare module 'slate' {
   interface CustomTypes {
     Editor: CustomEditor
     Element: CustomElement
-    Text: CustomText
+    Text: CustomText | EmptyText
   }
 }
